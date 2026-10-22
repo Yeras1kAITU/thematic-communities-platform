@@ -1,0 +1,28 @@
+# Environment and secrets
+.env
+.env.*
+config/.env
+
+# Build artifacts
+bin/
+dist/
+build/
+*.out
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+tmp/
+temp/
+.cache/
