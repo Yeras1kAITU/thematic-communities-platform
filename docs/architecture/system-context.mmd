@@ -1,0 +1,24 @@
+flowchart LR
+
+    %% External actors
+    Guest["👤 Guest"]
+    RegisteredUser["👤 Registered User"]
+    Member["👤 Community Member"]
+    Moderator["👤 Moderator"]
+    Owner["👤 Community Owner"]
+
+    %% System boundary
+    subgraph SystemBoundary["System in Scope"]
+        Platform["Thematic Communities Platform<br/><br/>Interest-based community platform for persistent discussions,<br/>quick communication, community membership,<br/>discovery, and moderation"]
+    end
+
+    %% Relationships
+    Guest -->|"Register<br/>Authenticate<br/>Access public information"| Platform
+
+    RegisteredUser -->|"Discover communities<br/>Join communities<br/>Access authenticated features"| Platform
+
+    Member -->|"View and create publications<br/>Comment and reply<br/>Use community chat<br/>Manage own content"| Platform
+
+    Moderator -->|"Moderate community content<br/>Participate in community"| Platform
+
+    Owner -->|"Manage community<br/>Manage community roles<br/>Moderate community content"| Platform
