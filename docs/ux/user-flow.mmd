@@ -1,0 +1,49 @@
+---
+config:
+  layout: elk
+---
+flowchart LR
+
+    Registration["P1<br/>Registration"]
+
+    Discovery["P2<br/>Community Discovery"]
+
+    CreateCommunity["P3<br/>Create Community"]
+
+    Community["P4<br/>Community Page"]
+
+    Join["Join Community"]
+
+    CreatePublication["Create Publication"]
+
+    Discussion["P5<br/>Publication Discussion"]
+
+    Comment["Comment"]
+
+    Reply["Reply"]
+
+    Chat["P6<br/>Community Chat"]
+
+    Registration -->|"account created / authenticate"| Discovery
+
+    Discovery -->|"open community"| Community
+
+    Discovery -->|"create community"| CreateCommunity
+    CreateCommunity -->|"community created"| Community
+
+    Community -->|"join"| Join
+    Join --> Community
+
+    Community -->|"create publication"| CreatePublication
+    CreatePublication -->|"published"| Discussion
+
+    Community -->|"open publication"| Discussion
+
+    Discussion -->|"add comment"| Comment
+    Comment --> Discussion
+
+    Discussion -->|"reply to comment"| Reply
+    Reply --> Discussion
+
+    Community -->|"open community chat"| Chat
+    Chat -->|"back to community"| Community
