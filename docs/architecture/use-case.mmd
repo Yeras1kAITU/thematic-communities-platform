@@ -1,0 +1,83 @@
+---
+config:
+  usecase:
+    actorFontSize: 15
+    usecaseFontSize: 14
+    nodeSpacing: 45
+    rankSpacing: 55
+    diagramPadding: 20
+---
+usecase-beta
+
+direction TB
+
+%% Actors
+
+actor Guest("Guest")
+actor RegisteredUser("Registered User")
+actor Member("Community Member")
+actor Moderator("Moderator")
+actor Owner("Community Owner")
+
+%% System use cases
+
+systemBoundary Platform("Thematic Communities Platform")
+
+    Register("Register Account")
+    Authenticate("Authenticate")
+
+    DiscoverCommunities("Discover Communities")
+    CreateCommunity("Create Community")
+    JoinCommunity("Join Community")
+
+    ViewPublications("View Community Publications")
+
+    LeaveCommunity("Leave Community")
+    CreatePublication("Create Publication")
+    CommentPublication("Comment on Publication")
+    ReplyComment("Reply to Comment")
+    CommunityChat("Use Community Chat")
+    DeleteOwnContent("Delete Own Content")
+
+    ModerateContent("Moderate Community Content")
+
+    ManageCommunity("Manage Community")
+    ManageRoles("Manage Community Roles")
+
+end
+
+%% Actor hierarchy
+
+Member --|> RegisteredUser
+Moderator --|> Member
+Owner --|> Moderator
+
+%% Guest interactions
+
+Guest --> Register
+Guest --> Authenticate
+
+%% Registered user interactions
+
+RegisteredUser --> DiscoverCommunities
+RegisteredUser --> CreateCommunity
+RegisteredUser --> JoinCommunity
+RegisteredUser --> ViewPublications
+
+%% Community member interactions
+
+Member --> LeaveCommunity
+Member --> CreatePublication
+Member --> CommentPublication
+Member --> ReplyComment
+Member --> CommunityChat
+Member --> DeleteOwnContent
+
+%% Moderator interactions
+
+Moderator --> ModerateContent
+
+%% Owner interactions
+
+Owner --> ManageCommunity
+Owner --> ManageRoles
