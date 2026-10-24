@@ -1,0 +1,63 @@
+---
+config:
+  layout: elk
+---
+flowchart LR
+
+    subgraph Platform["Thematic Communities Platform"]
+
+        Client["Web Client"]
+
+        subgraph Backend["Go Backend — Modular Monolith"]
+
+            subgraph Delivery["Delivery Layer"]
+                API["REST API"]
+                WS["WebSocket Gateway"]
+            end
+
+            subgraph Modules["Application / Domain Modules"]
+                Auth["Auth & Users"]
+                Community["Communities & Membership"]
+                Content["Content & Discussions"]
+                Chat["Community Chat"]
+                Moderation["Moderation"]
+            end
+
+            Persistence["Persistence Layer<br/>Repository Interfaces & Adapters"]
+
+            Operations["Operational Interfaces<br/>Health · Structured Logs · Metrics"]
+        end
+
+        DB[("PostgreSQL")]
+    end
+
+    %% Client communication
+    Client -->|"HTTP / JSON"| API
+    Client <-->|"WebSocket"| WS
+
+    %% Delivery to application modules
+    API --> Auth
+    API --> Community
+    API --> Content
+    API --> Moderation
+
+    WS --> Chat
+
+    %% Domain dependencies
+    Content -->|"membership / access checks"| Community
+    Chat -->|"membership / access checks"| Community
+    Moderation -->|"role checks"| Community
+    Moderation -->|"moderates"| Content
+
+    %% Persistence
+    Auth --> Persistence
+    Community --> Persistence
+    Content --> Persistence
+    Chat --> Persistence
+    Moderation --> Persistence
+
+    Persistence -->|"SQL"| DB
+
+    %% Operational concerns
+    API -.->|"health / telemetry"| Operations
+    WS -.->|"connection telemetry"| Operations
